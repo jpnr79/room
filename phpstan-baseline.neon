@@ -1,0 +1,43 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Instantiated class plugin_room_profile not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ajax/profile_tabs.php
+
+		-
+			message: '#^Call to an undefined static method CommonGLPI\:\:displayStandardTab\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: ajax/room.tabs.php
+
+		-
+			message: '#^Call to static method showForItem\(\) on an unknown class Reservation\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ajax/room.tabs.php
+
+		-
+			message: '#^Call to an undefined static method Search\:\:addLeftJoin\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: hook.php
+
+		-
+			message: '#^Call to an undefined static method Dropdown\:\:showNumber\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: inc/room.class.php
+
+		-
+			message: '#^Call to an undefined static method Html\:\:showDateField\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: inc/room.class.php
+
+		-
+			message: '#^Call to an undefined static method Session\:\:isMultiEntitiesMode\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: inc/room.class.php
