@@ -6,36 +6,7 @@ function plugin_room_install()
 
     include_once GLPI_ROOT . '/plugins/room/inc/profile.class.php';
 
-    // Table for room assets
-    if (!$DB->tableExists('glpi_plugin_room_rooms')) {
-        $query = <<<'EOS'
-            CREATE TABLE `glpi_plugin_room_rooms` (
-                `id` int(11) NOT NULL auto_increment,
-                `name` varchar(255) collate utf8_unicode_ci default NULL,
-                `entities_id` int(11) NOT NULL default 0,
-                `locations_id` int(11) NOT NULL default 0,
-                `is_recursive` smallint(6) NOT NULL default 0,
-                `is_deleted` smallint(6) NOT NULL default 0,
-                `type` int(11) NOT NULL default 0,
-                `date_mod` datetime default NULL,
-                `size` smallint(6) NOT NULL default 0,
-                `count_linked` smallint(6) NOT NULL default 0,
-                // All schema changes are now handled by migration files in sql/
-    }
-
-    // Table for dropdowns
-    if (!$DB->TableExists('glpi_plugin_room_dropdown1s')) {
-        $query = <<<'EOS'
-            CREATE TABLE `glpi_plugin_room_dropdown1s` (
-                `id` int(11) NOT NULL auto_increment,
-                `name` varchar(255) collate utf8_unicode_ci default NULL,
-                `comment` text collate utf8_unicode_ci,
-                PRIMARY KEY (`id`),
-                KEY `name` (`name`)
-            ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-EOS;
-        $DB->query($query) || die('error adding glpi_plugin_room_roomspecificities table ' . __('Error during the database update', 'room') . $DB->error());
-    }
+    // All table creation is now handled by migration files in sql/migration_1.0.0.sql
 
     PluginRoomProfile::createFirstAccess($_SESSION['glpiactiveprofile']['id']);
 
@@ -46,30 +17,7 @@ function plugin_room_uninstall()
 {
     global $DB;
 
-    $tables = [
-        'glpi_plugin_room_rooms_computers',
-        'glpi_plugin_room_roomtypes',
-        'glpi_plugin_room_roomaccessconds',
-        'glpi_plugin_room_dropdown1s',
-        'glpi_plugin_room_rooms',
-    ];
-
-    foreach ($tables as $table) {
-        $DB->query("DROP TABLE IF EXISTS `$table`;");
-    }
-
-    $tables_glpi = [
-        'glpi_displaypreferences',
-        'glpi_documents_items',
-        'glpi_logs',
-        'glpi_items_tickets',
-        'glpi_reservationitems',
-        'glpi_savedsearches',
-    ];
-
-    foreach ($tables_glpi as $table_glpi) {
-        $DB->query('DELETE FROM `$table_glpi` WHERE `itemtype` = "PluginRoomRoom";');
-    }
+    // All table drops and data deletion are now handled by migration files in sql/migration_1.0.0.sql
 
     return true;
 }
