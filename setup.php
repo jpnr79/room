@@ -23,7 +23,7 @@ function plugin_init_room()
     Plugin::registerClass('PluginRoomRoom', [
         'reservation_types' => true,
         'ticket_types' => true,
-        'linkgroup_tech_types' => true,
+        'assignable_types' => true,
     ]);
 
     $CFG_GLPI['impact_asset_types']['PluginRoomRoom'] = 'plugins/room/room.png';
